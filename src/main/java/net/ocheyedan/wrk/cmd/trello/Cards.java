@@ -10,14 +10,14 @@ import net.ocheyedan.wrk.trello.Label;
 import net.ocheyedan.wrk.trello.TrelloUtil;
 import org.codehaus.jackson.type.TypeReference;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * User: blangel
  * Date: 6/30/12
  * Time: 6:51 AM
  */
-public final class Cards extends Command {
+public final class Cards extends IdCommand {
 
     private final String url;
 
@@ -26,10 +26,10 @@ public final class Cards extends Command {
     public Cards(Args args) {
         super(args);
         if ((args.args.size() == 2) && "in".equals(args.args.get(0))) {
-            String boardId = args.args.get(1); // TODO - parse for wrk-id
-            url = TrelloUtil.url("https://trello.com/1/boards/%s/cards?filter=open&key=%s&token=%s", boardId,
+            TrelloId boardId = parseWrkId(args.args.get(1), boardsPrefix);
+            url = TrelloUtil.url("https://trello.com/1/boards/%s/cards?filter=open&key=%s&token=%s", boardId.id,
                     TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
-            description = String.format("Open cards for board ^b^%s^r^:", boardId);
+            description = String.format("Open cards for board ^b^%s^r^:", boardId.id);
         } else if (args.args.isEmpty()) {
             url = TrelloUtil.url("https://trello.com/1/members/my/cards?filter=open&key=%s&token=%s", TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
             description = "Open cards assigned to you:";
@@ -38,23 +38,29 @@ public final class Cards extends Command {
         }
     }
 
-    @Override public void run() {
+    @Override protected Map<String, String> _run() {
         if (url == null) {
             new Usage(args).run();
-            return;
+            return Collections.emptyMap();
         }
         Output.print(description);
         List<Card> cards = RestTemplate.get(url, new TypeReference<List<Card>>() {
         });
         if ((cards == null) || cards.isEmpty()) {
             Output.print("  ^black^None^r^");
-            return;
+            return Collections.emptyMap();
         }
+        Map<String, String> wrkIds = new HashMap<String, String>(cards.size());
+        int cardIndex = 1;
         for (Card card : cards) {
+            String wrkId = "wrk" + cardIndex++;
+            wrkIds.put(wrkId, String.format("c:%s", card.getId()));
+
             String labels = buildLabel(card.getLabels());
-            Output.print("  ^b^%s^r^%s", card.getName(), labels);
+            Output.print("  ^b^%s^r^%s ^black^| %s^r^", card.getName(), labels, wrkId);
             Output.print("    ^black^%s^r^", getPrettyUrl(card));
         }
+        return wrkIds;
     }
 
     /**
@@ -76,8 +82,11 @@ public final class Cards extends Command {
 
     private String buildLabel(List<Label> labels) {
         StringBuilder buffer = new StringBuilder();
+        boolean colored = Output.isColoredOutput();
         for (Label label : labels) {
-            String name = ((label.getName() == null) || label.getName().isEmpty() ? "  " : " " + label.getName() + " ");
+            String name = ((label.getName() == null) || label.getName().isEmpty()
+                    ? (colored ? "  " : "[" + label.getColor() + "]")
+                    : " " + label.getName() + " ");
             if ("green".equals(label.getColor())) {
                 buffer.append(String.format(" ^i^^green^%s^r^", name));
             } else if ("yellow".equals(label.getColor())) {

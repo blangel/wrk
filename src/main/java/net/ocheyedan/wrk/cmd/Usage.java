@@ -33,6 +33,8 @@ public final class Usage extends Command {
         Output.print("        lists the comments for ^b^card-id^r^ which is either the Trello or wrk id of a card.");
         Output.print("    ^b^members in o:<org-id>|b:<board-id>|c:<card-id>^r^");
         Output.print("        lists the members in ^b^org-id^r^|^b^board-id^r^|^b^card-id^r^ which is either the Trello or wrk id of a organization|board|card.");
+        Output.print("    ^b^pop <num|all>^r^");
+        Output.print("        pops ^b^num^r^ (or ^b^all^r^) of the queued wrk ids.");
 
     }
 }

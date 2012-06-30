@@ -9,14 +9,16 @@ import net.ocheyedan.wrk.trello.Action;
 import net.ocheyedan.wrk.trello.TrelloUtil;
 import org.codehaus.jackson.type.TypeReference;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: blangel
  * Date: 6/30/12
  * Time: 10:00 AM
  */
-public final class Comments extends Command {
+public final class Comments extends IdCommand {
 
     private final String url;
 
@@ -25,24 +27,24 @@ public final class Comments extends Command {
     public Comments(Args args) {
         super(args);
         if ((args.args.size() == 2) && "in".equals(args.args.get(0))) {
-            String cardId = args.args.get(1); // TODO - parse for wrk-id
-            url = TrelloUtil.url("https://trello.com/1/cards/%s/actions?filter=commentCard&key=%s&token=%s", cardId, TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
-            description = String.format("Comments for card ^b^%s^r^:", cardId);
+            TrelloId cardId = parseWrkId(args.args.get(1), cardsPrefix);
+            url = TrelloUtil.url("https://trello.com/1/cards/%s/actions?filter=commentCard&key=%s&token=%s", cardId.id, TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            description = String.format("Comments for card ^b^%s^r^:", cardId.id);
         } else {
             url = description = null;
         }
     }
 
-    @Override public void run() {
+    @Override protected Map<String, String> _run() {
         if (url == null) {
             new Usage(args).run();
-            return;
+            return Collections.emptyMap();
         }
         Output.print(description);
         List<Action> comments = RestTemplate.get(url, new TypeReference<List<Action>>() { });
         if ((comments == null) || comments.isEmpty()) {
             Output.print("  ^black^None^r^");
-            return;
+            return Collections.emptyMap();
         }
         String color = "white";
         for (Action comment : comments) {
@@ -60,5 +62,6 @@ public final class Comments extends Command {
                 color = "white";
             }
         }
+        return Collections.emptyMap();
     }
 }

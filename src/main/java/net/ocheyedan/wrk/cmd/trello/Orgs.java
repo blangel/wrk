@@ -8,14 +8,14 @@ import net.ocheyedan.wrk.trello.Organization;
 import net.ocheyedan.wrk.trello.TrelloUtil;
 import org.codehaus.jackson.type.TypeReference;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * User: blangel
  * Date: 6/30/12
  * Time: 8:19 AM
  */
-public final class Orgs extends Command {
+public final class Orgs extends IdCommand {
 
     private final String url;
 
@@ -28,18 +28,24 @@ public final class Orgs extends Command {
         description = "Your organizations:";
     }
 
-    @Override public void run() {
+    @Override protected Map<String, String> _run() {
         Output.print(description);
         List<Organization> orgs = RestTemplate.get(url, new TypeReference<List<Organization>>() {
         });
         if ((orgs == null) || orgs.isEmpty()) {
             Output.print("  ^black^None^r^");
-            return;
+            return Collections.emptyMap();
         }
+        Map<String, String> wrkIds = new HashMap<String, String>(orgs.size());
+        int orgIndex = 1;
         for (Organization organization : orgs) {
-            Output.print("  ^b^%s^r^", organization.getDisplayName());
+            String wrkId = "wrk" + orgIndex++;
+            wrkIds.put(wrkId, String.format("o:%s", organization.getId()));
+
+            Output.print("  ^b^%s^r^ ^black^| %s^r^", organization.getDisplayName(), wrkId);
             Output.print("    ^black^%s^r^", organization.getUrl());
         }
+        return wrkIds;
     }
 
 }

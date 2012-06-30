@@ -41,6 +41,8 @@ public final class CommandLineParser {
             return new Comments(parse(args, 1));
         } else if ("members".equals(args[0])) {
             return new Members(parse(args, 1));
+        } else if ("pop".equals(args[0])) {
+            return new Pop(parse(args, 1));
         } else {
             return new Usage(parse(args, 0));
         }
