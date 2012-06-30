@@ -44,7 +44,8 @@ public final class Cards extends Command {
             return;
         }
         Output.print(description);
-        List<Card> cards = RestTemplate.invokeRest(url, new TypeReference<List<Card>>() { });
+        List<Card> cards = RestTemplate.get(url, new TypeReference<List<Card>>() {
+        });
         if ((cards == null) || cards.isEmpty()) {
             Output.print("  ^black^None^r^");
             return;

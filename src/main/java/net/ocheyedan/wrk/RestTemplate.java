@@ -15,7 +15,7 @@ import java.net.URL;
  */
 public final class RestTemplate {
 
-    public static <T> T invokeRest(String restfulEndpoint, TypeReference<T> forResultType) {
+    public static <T> T get(String restfulEndpoint, TypeReference<T> forResultType) {
         T result = null;
         InputStream stream = null;
         try {

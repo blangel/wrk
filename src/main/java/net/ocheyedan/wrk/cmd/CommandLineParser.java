@@ -1,9 +1,6 @@
 package net.ocheyedan.wrk.cmd;
 
-import net.ocheyedan.wrk.cmd.trello.Boards;
-import net.ocheyedan.wrk.cmd.trello.Cards;
-import net.ocheyedan.wrk.cmd.trello.Comments;
-import net.ocheyedan.wrk.cmd.trello.Orgs;
+import net.ocheyedan.wrk.cmd.trello.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,6 +39,8 @@ public final class CommandLineParser {
             return new Cards(parse(args, 1));
         } else if ("comments".equals(args[0])) {
             return new Comments(parse(args, 1));
+        } else if ("members".equals(args[0])) {
+            return new Members(parse(args, 1));
         } else {
             return new Usage(parse(args, 0));
         }

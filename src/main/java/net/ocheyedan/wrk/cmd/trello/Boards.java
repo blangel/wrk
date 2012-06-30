@@ -10,7 +10,6 @@ import net.ocheyedan.wrk.trello.TrelloUtil;
 import org.codehaus.jackson.type.TypeReference;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * User: blangel
@@ -27,10 +26,12 @@ public final class Boards extends Command {
         super(args);
         if ((args.args.size() == 2) && "in".equals(args.args.get(0))) {
             String orgId = args.args.get(1); // TODO - parse for wrk-id
-            url = TrelloUtil.url("https://trello.com/1/organization/%s/boards?filter=open&key=%s&token=%s", orgId, TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            url = TrelloUtil.url("https://trello.com/1/organization/%s/boards?filter=open&key=%s&token=%s", orgId,
+                    TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
             description = String.format("Open boards for organization ^b^%s^r^:", orgId);
         } else if (args.args.isEmpty()) {
-            url = TrelloUtil.url("https://trello.com/1/members/my/boards?filter=open&key=%s&token=%s", TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            url = TrelloUtil.url("https://trello.com/1/members/my/boards?filter=open&key=%s&token=%s",
+                    TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
             description = "Open boards you've created:";
         } else {
             url = description = null;
@@ -43,7 +44,8 @@ public final class Boards extends Command {
             return;
         }
         Output.print(description);
-        List<Board> boards = RestTemplate.invokeRest(url, new TypeReference<List<Board>>() { });
+        List<Board> boards = RestTemplate.get(url, new TypeReference<List<Board>>() {
+        });
         if ((boards == null) || boards.isEmpty()) {
             Output.print("  ^black^None^r^");
             return;

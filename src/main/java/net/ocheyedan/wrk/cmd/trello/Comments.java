@@ -39,7 +39,7 @@ public final class Comments extends Command {
             return;
         }
         Output.print(description);
-        List<Action> comments = RestTemplate.invokeRest(url, new TypeReference<List<Action>>() { });
+        List<Action> comments = RestTemplate.get(url, new TypeReference<List<Action>>() { });
         if ((comments == null) || comments.isEmpty()) {
             Output.print("  ^black^None^r^");
             return;

@@ -23,13 +23,15 @@ public final class Orgs extends Command {
 
     public Orgs(Args args) {
         super(args);
-        url = TrelloUtil.url("https://trello.com/1/members/my/organizations?key=%s&token=%s", TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+        url = TrelloUtil.url("https://trello.com/1/members/my/organizations?key=%s&token=%s", TrelloUtil.APP_DEV_KEY,
+                TrelloUtil.USR_TOKEN);
         description = "Your organizations:";
     }
 
     @Override public void run() {
         Output.print(description);
-        List<Organization> orgs = RestTemplate.invokeRest(url, new TypeReference<List<Organization>>() { });
+        List<Organization> orgs = RestTemplate.get(url, new TypeReference<List<Organization>>() {
+        });
         if ((orgs == null) || orgs.isEmpty()) {
             Output.print("  ^black^None^r^");
             return;
