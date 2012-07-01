@@ -39,7 +39,7 @@ Using Trello ids:
     # copy and paste board id from output of 2 commands previous
     wrk cards in b:4fed9292f29a10bc3b4077ec
     
-![trello ids](https://github.com/blangel/wrk/raw/master/docs/imgs/trello-id.png "trello ids")
+![trello ids](https://github.com/blangel/wrk/raw/master/docs/img/trello-id.png "trello ids")
 
 Using wrk ids:
 
@@ -49,7 +49,7 @@ Using wrk ids:
     wrk pop
     wrk cards in wrk2
 
-![wrk ids](https://github.com/blangel/wrk/raw/master/docs/imgs/wrk-id.png "wrk ids")
+![wrk ids](https://github.com/blangel/wrk/raw/master/docs/img/wrk-id.png "wrk ids")
 
 Color/Editor Configuration
 ------
