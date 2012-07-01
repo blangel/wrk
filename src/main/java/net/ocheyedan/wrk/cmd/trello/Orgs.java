@@ -32,8 +32,7 @@ public final class Orgs extends IdCommand {
 
     @Override protected Map<String, String> _run() {
         Output.print(description);
-        List<Organization> orgs = RestTemplate.get(url, new TypeReference<List<Organization>>() {
-        });
+        List<Organization> orgs = RestTemplate.get(url, new TypeReference<List<Organization>>() { });
         if ((orgs == null) || orgs.isEmpty()) {
             Output.print("  ^black^None^r^");
             return Collections.emptyMap();

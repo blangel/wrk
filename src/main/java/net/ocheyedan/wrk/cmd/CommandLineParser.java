@@ -51,6 +51,8 @@ public final class CommandLineParser {
             return new Assign(parse(args, 1));
         } else if ("unassign".equals(args[0])) {
             return new UnAssign(parse(args, 1));
+        } else if ("move".equals(args[0])) {
+            return new Move(parse(args, 1));
         } else if ("close".equals(args[0])) {
             return new Close(parse(args, 1));
         } else if ("pop".equals(args[0])) {
