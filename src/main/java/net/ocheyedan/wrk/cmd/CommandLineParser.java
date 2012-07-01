@@ -35,6 +35,8 @@ public final class CommandLineParser {
             return new Orgs(parse(args, 1));
         } else if ("boards".equals(args[0])) {
             return new Boards(parse(args, 1));
+        } else if ("lists".equals(args[0])) {
+            return new Lists(parse(args, 1));
         } else if ("cards".equals(args[0])) {
             return new Cards(parse(args, 1));
         } else if ("comments".equals(args[0])) {

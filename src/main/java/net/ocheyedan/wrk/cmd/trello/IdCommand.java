@@ -37,15 +37,19 @@ abstract class IdCommand extends Command {
     @SuppressWarnings("serial")
     protected static final Set<String> boardsPrefix = new HashSet<String>(1) { { add("b:"); } };
     @SuppressWarnings("serial")
+    protected static final Set<String> listsPrefix = new HashSet<String>(1) { { add("l:"); } };
+    @SuppressWarnings("serial")
     protected static final Set<String> cardsPrefix = new HashSet<String>(1) { { add("c:"); } };
     @SuppressWarnings("serial")
     protected static final Set<String> membersPrefix = new HashSet<String>(1) { { add("m:"); } };
     @SuppressWarnings("serial")
-    protected static final Set<String> boardsCardsPrefix = new HashSet<String>(1) { { add("b:"); add("c:"); } };
+    protected static final Set<String> boardsListsPrefix = new HashSet<String>(1) { { add("b:"); add("l:"); } };
+    @SuppressWarnings("serial")
+    protected static final Set<String> boardsListsCardsPrefix = new HashSet<String>(1) { { add("b:"); add("l:"); add("c:"); } };
     @SuppressWarnings("serial")
     protected static final Set<String> orgsBoardsCardsPrefix = new HashSet<String>(1) { { add("o:"); add("b:"); add("c:"); } };
     @SuppressWarnings("serial")
-    protected static final Set<String> allPrefix = new HashSet<String>(1) { { add("o:"); add("b:"); add("c:"); add("m:"); } };
+    protected static final Set<String> allPrefix = new HashSet<String>(1) { { add("o:"); add("b:"); add("l:"); add("c:"); add("m:"); } };
 
     private final File wrkIdsFile;
 

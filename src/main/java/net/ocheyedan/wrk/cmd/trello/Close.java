@@ -24,12 +24,17 @@ public final class Close extends IdCommand {
     public Close(Args args) {
         super(args);
         if (args.args.size() == 1) {
-            TrelloId id = parseWrkId(args.args.get(0), boardsCardsPrefix);
+            TrelloId id = parseWrkId(args.args.get(0), boardsListsCardsPrefix);
             if (id.idWithTypePrefix.startsWith("b:")) {
                 String boardId = id.idWithTypePrefix.substring(2);
                 url = Trello.url("https://trello.com/1/boards/%s/closed?value=true&key=%s&token=%s", boardId,
                         Trello.APP_DEV_KEY, Trello.USR_TOKEN);
                 description = String.format("Closing board ^b^%s^r^:", boardId);
+            } else if (id.idWithTypePrefix.startsWith("l:")) {
+                String listId = id.idWithTypePrefix.substring(2);
+                url = Trello.url("https://trello.com/1/lists/%s/closed?value=true&key=%s&token=%s", listId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
+                description = String.format("Closing list ^b^%s^r^:", listId);
             } else if (id.idWithTypePrefix.startsWith("c:")) {
                 String cardId = id.idWithTypePrefix.substring(2);
                 url = Trello.url("https://trello.com/1/cards/%s/closed?value=true&key=%s&token=%s", cardId,

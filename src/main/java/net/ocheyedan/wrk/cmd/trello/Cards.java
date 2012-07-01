@@ -28,10 +28,20 @@ public final class Cards extends IdCommand {
     public Cards(Args args) {
         super(args);
         if ((args.args.size() == 2) && "in".equals(args.args.get(0))) {
-            TrelloId boardId = parseWrkId(args.args.get(1), boardsPrefix);
-            url = Trello.url("https://trello.com/1/boards/%s/cards?filter=open&key=%s&token=%s", boardId.id,
-                    Trello.APP_DEV_KEY, Trello.USR_TOKEN);
-            description = String.format("Open cards for board ^b^%s^r^:", boardId.id);
+            TrelloId id = parseWrkId(args.args.get(1), boardsListsPrefix);
+            if (id.idWithTypePrefix.startsWith("b:")) {
+                String boardId = id.idWithTypePrefix.substring(2);
+                url = Trello.url("https://trello.com/1/boards/%s/cards?filter=open&key=%s&token=%s", boardId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
+                description = String.format("Open cards for board ^b^%s^r^:", boardId);
+            } else if (id.idWithTypePrefix.startsWith("l:")) {
+                String listId = id.idWithTypePrefix.substring(2);
+                url = Trello.url("https://trello.com/1/lists/%s/cards?filter=open&key=%s&token=%s", listId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
+                description = String.format("Open cards for list ^b^%s^r^:", listId);
+            } else {
+                url = description = null;
+            }
         } else if (args.args.isEmpty()) {
             url = Trello.url("https://trello.com/1/members/my/cards?filter=open&key=%s&token=%s", Trello.APP_DEV_KEY,
                     Trello.USR_TOKEN);

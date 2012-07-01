@@ -18,7 +18,7 @@ import java.util.Map;
 public final class Desc extends IdCommand {
 
     private static enum Type {
-        Org, Board, Card, Member
+        Org, Board, List, Card, Member
     }
 
     private final String url;
@@ -43,6 +43,12 @@ public final class Desc extends IdCommand {
                         Trello.APP_DEV_KEY, Trello.USR_TOKEN);
                 description = String.format("Description of board ^b^%s^r^:", boardId);
                 type = Type.Board;
+            } else if (id.idWithTypePrefix.startsWith("l:")) {
+                String listId = id.idWithTypePrefix.substring(2);
+                url = Trello.url("https://trello.com/1/lists/%s?key=%s&token=%s", listId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
+                description = String.format("Description of list ^b^%s^r^:", listId);
+                type = Type.List;
             } else if (id.idWithTypePrefix.startsWith("c:")) {
                 String cardId = id.idWithTypePrefix.substring(2);
                 url = Trello.url("https://trello.com/1/cards/%s?key=%s&token=%s", cardId,
@@ -98,6 +104,14 @@ public final class Desc extends IdCommand {
                     Output.print("    %s", desc);
                 }
                 Output.print("    ^black^%s^r^", board.getUrl());
+                break;
+            case List:
+                net.ocheyedan.wrk.trello.List list = RestTemplate.get(url, new TypeReference<net.ocheyedan.wrk.trello.List>() { });
+                if (list == null) {
+                    Output.print("^red^Invalid id or not found.^r^");
+                    break;
+                }
+                Output.print("  ^b^%s^r^ ^black^| %s^r^", list.getName(), list.getId());
                 break;
             case Card:
                 Card card = RestTemplate.get(url, new TypeReference<Card>() { });
