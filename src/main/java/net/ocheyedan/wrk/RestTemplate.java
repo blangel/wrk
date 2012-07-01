@@ -2,11 +2,10 @@ package net.ocheyedan.wrk;
 
 import org.codehaus.jackson.type.TypeReference;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * User: blangel
@@ -16,6 +15,18 @@ import java.net.URL;
 public final class RestTemplate {
 
     public static <T> T get(String restfulEndpoint, TypeReference<T> forResultType) {
+        return invoke(restfulEndpoint, "GET", forResultType);
+    }
+
+    public static <T> T post(String restfulEndpoint, TypeReference<T> forResultType) {
+        return invoke(restfulEndpoint, "POST", forResultType);
+    }
+
+    public static <T> T delete(String restfulEndpoint, TypeReference<T> forResultType) {
+        return invoke(restfulEndpoint, "DELETE", forResultType);
+    }
+
+    private static <T> T invoke(String restfulEndpoint, String method, TypeReference<T> forResultType) {
         T result = null;
         InputStream stream = null;
         try {
@@ -23,11 +34,10 @@ public final class RestTemplate {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.setInstanceFollowRedirects(false);
-            connection.setRequestMethod("GET");
+            connection.setRequestMethod(method);
 
             stream = connection.getInputStream();
             result = Json.mapper().readValue(stream, forResultType);
-            connection.getResponseCode();
             connection.disconnect();
         } catch (FileNotFoundException fnfe) {
             return null;
