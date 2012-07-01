@@ -27,7 +27,7 @@ public final class CommandLineParser {
     public static Command parse(String[] args) {
         if ((args == null) || (args.length < 1)) {
             return new Cards(parse(args, 0));
-        } else if ("--usage".equals(args[0]) || "--help".equals(args[0])) {
+        } else if ("--usage".equals(args[0]) || "--help".equals(args[0]) || "help".equals(args[0])) {
             return new Usage(parse(args, 1));
         } else if ("--version".equals(args[0]) || "-v".equals(args[0]) || "-version".equals(args[0])) {
             return new Version(parse(args, 1));
