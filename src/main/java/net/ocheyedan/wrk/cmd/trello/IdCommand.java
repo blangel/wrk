@@ -9,6 +9,7 @@ import org.codehaus.jackson.type.TypeReference;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -105,6 +106,27 @@ abstract class IdCommand extends Command {
         } catch (IOException ioe) {
             Output.print(ioe);
         }
+    }
+
+    static String validate(String value, String type, String plural) {
+        if ((value == null) || value.isEmpty()) {
+            Output.print("^red^%s was empty, doing nothing.^r^", type);
+            System.exit(0);
+        }
+        if (value.length() > 16384) {
+            Output.print("^red^Trello %s must be less than 16,384 characters, shortening.^r^", plural);
+            return value.substring(0, 16384);
+        }
+        return value;
+    }
+
+    static String encode(String comment) {
+        try {
+            return URLEncoder.encode(comment, "UTF-8");
+        } catch (IOException ioe) {
+            Output.print(ioe);
+        }
+        return comment;
     }
 
     protected TrelloId parseWrkId(String wrkId, Set<String> desiredPrefixes) {

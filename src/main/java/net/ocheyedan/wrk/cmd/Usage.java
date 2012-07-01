@@ -60,7 +60,7 @@ public final class Usage extends Command {
                     Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("desc".equals(subcommand)) {
                     Output.print("^b^desc o:<org-id>|b:<board-id>|l:<list-id>|c:<card-id>|m:<member-id>^r^");
-                    Output.print("    describe the value of ^b^org-id^r^|^b^board-id^r^|^b^list-id^r^|^b^card-id^r^|^b^member-id^r^ which is the Trello or wrk id of a organization|board|list|card|member.");
+                    Output.print("    describe the value of ^b^org-id^r^|^b^board-id^r^|^b^list-id^r^|^b^card-id^r^|^b^member-id^r^ which is the Trello or wrk id of an organization|board|list|card|member.");
                     Output.print("    Note, if using a wrk id the prefix is not necessary as wrk ids know their type.");
                 } else if ("comment".equals(subcommand)) {
                     Output.print("^b^comment on <card-id> [message]^r^");
@@ -76,6 +76,16 @@ public final class Usage extends Command {
                     Output.print("    un-assigns the user from the ^b^card-id^r^ which is the Trello or wrk id of a card.");
                     Output.print("^b^unassign <member-id> from <card-id>^r^");
                     Output.print("    un-assigns the ^b^member-id^r^ from the ^b^card-id^r^ which are the Trello or wrk ids of a member/card.");
+                } else if ("create".equals(subcommand)) {
+                    Output.print("^b^create board in <org-id> <name> [desc]");
+                    Output.print("    creates a ^b^board^r^ named ^b^name^r^ (with ^b^desc^r^ if present) in ^b^org-id^r^ which is the Trello or wrk id of an organization.");
+                    Output.print("^b^create list in <board-id> <name> [desc]");
+                    Output.print("    creates a ^b^list^r^ named ^b^name^r^ (with ^b^desc^r^ if present) in ^b^board-id^r^ which is the Trello or wrk id of a board.");
+                    Output.print("^b^create card in <list-id> <name> [desc]");
+                    Output.print("    creates a ^b^card^r^ named ^b^name^r^ (with ^b^desc^r^ if present) in ^b^list-id^r^ which is the Trello or wrk id of a list.");
+                    Output.print("");
+                    Output.print("The created board|list|card will be assigned a wrk id and placed in the wrk id results queue.");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("move".equals(subcommand)) {
                     Output.print("^b^move <card-id> to <list-id>");
                     Output.print("    moves the ^b^card-id^r^ to the given ^b^list-id^r^ which are the Trello or wrk ids of a card/list.");
@@ -108,7 +118,8 @@ public final class Usage extends Command {
         Output.print("    ^b^comment^r^   Creates a comment on a particular card.");
         Output.print("    ^b^assign^r^    Assigns the user or a member to a particular card.");
         Output.print("    ^b^unassign^r^  Un-assigns the user or a member from a particular card.");
-        Output.print("    ^b^move^r^      Moves a list/card to a board/list.");
+        Output.print("    ^b^create^r^    Creates a board/list/card.");
+        Output.print("    ^b^move^r^      Moves a card to a list.");
         Output.print("    ^b^close^r^     Closes a board/list/card.");
         Output.print("    ^b^pop^r^       Pops wrk ids from the queue of wrk id results.");
         Output.print("");

@@ -10,7 +10,6 @@ import org.codehaus.jackson.type.TypeReference;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
@@ -30,40 +29,19 @@ public final class Comment extends IdCommand {
         super(args);
         if ((args.args.size() == 3) && "on".equals(args.args.get(0))) {
             TrelloId cardId = parseWrkId(args.args.get(1), cardsPrefix);
-            String comment = validate(encode(args.args.get(2)));
+            String comment = validate(encode(args.args.get(2)), "Comment", "comments");
             url = Trello.url("https://trello.com/1/cards/%s/actions/comments?text=%s&key=%s&token=%s", cardId.id,
                     comment, Trello.APP_DEV_KEY, Trello.USR_TOKEN);
             description = String.format("Commenting on card ^b^%s^r^:", cardId.id);
         } else if ((args.args.size() == 2) && "on".equals(args.args.get(0))) {
             TrelloId cardId = parseWrkId(args.args.get(1), cardsPrefix);
-            String comment = validate(encode(getComment()));
+            String comment = validate(encode(getComment()), "Comment", "comments");
             url = Trello.url("https://trello.com/1/cards/%s/actions/comments?text=%s&key=%s&token=%s", cardId.id,
                     comment, Trello.APP_DEV_KEY, Trello.USR_TOKEN);
             description = String.format("Commenting on card ^b^%s^r^:", cardId.id);
         } else {
             url = description = null;
         }
-    }
-
-    private String validate(String comment) {
-        if ((comment == null) || comment.isEmpty()) {
-            Output.print("^red^Comment was empty, doing nothing.^r^");
-            System.exit(0);
-        }
-        if (comment.length() > 16384) {
-            Output.print("^red^Trello comments must be less than 16,384 characters, shortening.^r^");
-            return comment.substring(0, 16384);
-        }
-        return comment;
-    }
-
-    private String encode(String comment) {
-        try {
-            return URLEncoder.encode(comment, "UTF-8");
-        } catch (IOException ioe) {
-            Output.print(ioe);
-        }
-        return comment;
     }
 
     private String getComment() {
