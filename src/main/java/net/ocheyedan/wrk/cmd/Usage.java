@@ -31,6 +31,8 @@ public final class Usage extends Command {
         Output.print("        lists the open cards for ^b^board-id^r^ which is the Trello or wrk id of a board.");
         Output.print("    ^b^comments in <card-id>^r^");
         Output.print("        lists the comments for ^b^card-id^r^ which is the Trello or wrk id of a card.");
+        Output.print("    ^b^desc o:<org-id>|b:<board-id>|c:<card-id>|m:<member-id>^r^");
+        Output.print("        describe the value of ^b^org-id^r^|^b^board-id^r^|^b^card-id^r^|^b^member-id^r^ which is the Trello or wrk id of a organization|board|card|member.");
         Output.print("    ^b^members in o:<org-id>|b:<board-id>|c:<card-id>^r^");
         Output.print("        lists the members in ^b^org-id^r^|^b^board-id^r^|^b^card-id^r^ which is the Trello or wrk id of a organization|board|card.");
         Output.print("    ^b^assign <card-id>^r^");

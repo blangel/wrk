@@ -70,7 +70,7 @@ public final class Cards extends IdCommand {
      * @param card to get long url
      * @return the long url (using {@link Card#getId()} instead of {@link Card#getIdShort()}
      */
-    private String getPrettyUrl(Card card) {
+    static String getPrettyUrl(Card card) {
         String originalUrl = card.getUrl();
         int firstIndex = originalUrl.indexOf("card/");
         if (firstIndex == -1) {
@@ -80,7 +80,7 @@ public final class Cards extends IdCommand {
         return originalUrl.replace(toRemove, card.getIdBoard() + "/" + card.getId());
     }
 
-    private String buildLabel(List<Label> labels) {
+    static String buildLabel(List<Label> labels) {
         StringBuilder buffer = new StringBuilder();
         boolean colored = Output.isColoredOutput();
         for (Label label : labels) {
