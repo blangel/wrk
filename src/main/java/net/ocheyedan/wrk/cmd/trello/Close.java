@@ -4,14 +4,10 @@ import net.ocheyedan.wrk.Output;
 import net.ocheyedan.wrk.RestTemplate;
 import net.ocheyedan.wrk.cmd.Args;
 import net.ocheyedan.wrk.cmd.Usage;
-import net.ocheyedan.wrk.trello.Board;
-import net.ocheyedan.wrk.trello.Card;
-import net.ocheyedan.wrk.trello.Member;
-import net.ocheyedan.wrk.trello.TrelloUtil;
+import net.ocheyedan.wrk.trello.Trello;
 import org.codehaus.jackson.type.TypeReference;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,13 +27,13 @@ public final class Close extends IdCommand {
             TrelloId id = parseWrkId(args.args.get(0), boardsCardsPrefix);
             if (id.idWithTypePrefix.startsWith("b:")) {
                 String boardId = id.idWithTypePrefix.substring(2);
-                url = TrelloUtil.url("https://trello.com/1/boards/%s/closed?value=true&key=%s&token=%s", boardId,
-                        TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+                url = Trello.url("https://trello.com/1/boards/%s/closed?value=true&key=%s&token=%s", boardId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
                 description = String.format("Closing board ^b^%s^r^:", boardId);
             } else if (id.idWithTypePrefix.startsWith("c:")) {
                 String cardId = id.idWithTypePrefix.substring(2);
-                url = TrelloUtil.url("https://trello.com/1/cards/%s/closed?value=true&key=%s&token=%s", cardId,
-                        TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+                url = Trello.url("https://trello.com/1/cards/%s/closed?value=true&key=%s&token=%s", cardId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
                 description = String.format("Closing card ^b^%s^r^:", cardId);
             } else {
                 url = description = null;

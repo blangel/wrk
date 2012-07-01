@@ -1,7 +1,6 @@
 package net.ocheyedan.wrk.trello;
 
 import java.util.List;
-import java.util.prefs.PreferenceChangeEvent;
 
 /**
  * User: blangel

@@ -5,14 +5,13 @@ import net.ocheyedan.wrk.Output;
 import net.ocheyedan.wrk.RestTemplate;
 import net.ocheyedan.wrk.cmd.Args;
 import net.ocheyedan.wrk.cmd.Usage;
-import net.ocheyedan.wrk.trello.Action;
-import net.ocheyedan.wrk.trello.TrelloUtil;
+import net.ocheyedan.wrk.trello.Trello;
 import org.codehaus.jackson.type.TypeReference;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -32,14 +31,14 @@ public final class Comment extends IdCommand {
         if ((args.args.size() == 3) && "on".equals(args.args.get(0))) {
             TrelloId cardId = parseWrkId(args.args.get(1), cardsPrefix);
             String comment = validate(encode(args.args.get(2)));
-            url = TrelloUtil.url("https://trello.com/1/cards/%s/actions/comments?text=%s&key=%s&token=%s", cardId.id,
-                                 comment, TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            url = Trello.url("https://trello.com/1/cards/%s/actions/comments?text=%s&key=%s&token=%s", cardId.id,
+                    comment, Trello.APP_DEV_KEY, Trello.USR_TOKEN);
             description = String.format("Commenting on card ^b^%s^r^:", cardId.id);
         } else if ((args.args.size() == 2) && "on".equals(args.args.get(0))) {
             TrelloId cardId = parseWrkId(args.args.get(1), cardsPrefix);
             String comment = validate(encode(getComment()));
-            url = TrelloUtil.url("https://trello.com/1/cards/%s/actions/comments?text=%s&key=%s&token=%s", cardId.id,
-                                 comment, TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            url = Trello.url("https://trello.com/1/cards/%s/actions/comments?text=%s&key=%s&token=%s", cardId.id,
+                    comment, Trello.APP_DEV_KEY, Trello.USR_TOKEN);
             description = String.format("Commenting on card ^b^%s^r^:", cardId.id);
         } else {
             url = description = null;

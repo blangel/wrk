@@ -3,8 +3,6 @@ package net.ocheyedan.wrk;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 
-import java.io.File;
-
 /**
  * User: blangel
  * Date: 6/30/12

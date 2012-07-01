@@ -3,14 +3,16 @@ package net.ocheyedan.wrk.cmd.trello;
 import net.ocheyedan.wrk.Output;
 import net.ocheyedan.wrk.RestTemplate;
 import net.ocheyedan.wrk.cmd.Args;
-import net.ocheyedan.wrk.cmd.Command;
 import net.ocheyedan.wrk.cmd.Usage;
 import net.ocheyedan.wrk.trello.Card;
 import net.ocheyedan.wrk.trello.Label;
-import net.ocheyedan.wrk.trello.TrelloUtil;
+import net.ocheyedan.wrk.trello.Trello;
 import org.codehaus.jackson.type.TypeReference;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * User: blangel
@@ -27,11 +29,12 @@ public final class Cards extends IdCommand {
         super(args);
         if ((args.args.size() == 2) && "in".equals(args.args.get(0))) {
             TrelloId boardId = parseWrkId(args.args.get(1), boardsPrefix);
-            url = TrelloUtil.url("https://trello.com/1/boards/%s/cards?filter=open&key=%s&token=%s", boardId.id,
-                    TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            url = Trello.url("https://trello.com/1/boards/%s/cards?filter=open&key=%s&token=%s", boardId.id,
+                    Trello.APP_DEV_KEY, Trello.USR_TOKEN);
             description = String.format("Open cards for board ^b^%s^r^:", boardId.id);
         } else if (args.args.isEmpty()) {
-            url = TrelloUtil.url("https://trello.com/1/members/my/cards?filter=open&key=%s&token=%s", TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            url = Trello.url("https://trello.com/1/members/my/cards?filter=open&key=%s&token=%s", Trello.APP_DEV_KEY,
+                    Trello.USR_TOKEN);
             description = "Open cards assigned to you:";
         } else {
             url = description = null;

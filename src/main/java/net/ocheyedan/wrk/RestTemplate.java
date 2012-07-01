@@ -2,10 +2,11 @@ package net.ocheyedan.wrk;
 
 import org.codehaus.jackson.type.TypeReference;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * User: blangel

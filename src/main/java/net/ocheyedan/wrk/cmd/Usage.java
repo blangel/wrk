@@ -1,7 +1,6 @@
 package net.ocheyedan.wrk.cmd;
 
 import net.ocheyedan.wrk.Output;
-import net.ocheyedan.wrk.trello.TrelloUtil;
 
 /**
  * User: blangel

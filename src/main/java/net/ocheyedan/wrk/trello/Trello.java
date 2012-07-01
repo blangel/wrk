@@ -1,6 +1,5 @@
 package net.ocheyedan.wrk.trello;
 
-import net.ocheyedan.wrk.Json;
 import net.ocheyedan.wrk.Output;
 import net.ocheyedan.wrk.RestTemplate;
 import org.codehaus.jackson.type.TypeReference;
@@ -8,9 +7,7 @@ import org.codehaus.jackson.type.TypeReference;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URI;
-import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -20,7 +17,7 @@ import java.util.Map;
  *
  * Utility methods for when interacting with {@literal Trello}
  */
-public final class TrelloUtil {
+public final class Trello {
 
     public static final String APP_DEV_KEY = "8d56bbd601877abfd13150a999a840d0";
 
@@ -63,6 +60,6 @@ public final class TrelloUtil {
         }
     }
 
-    private TrelloUtil() { }
+    private Trello() { }
 
 }

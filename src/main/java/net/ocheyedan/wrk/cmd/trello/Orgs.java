@@ -3,12 +3,14 @@ package net.ocheyedan.wrk.cmd.trello;
 import net.ocheyedan.wrk.Output;
 import net.ocheyedan.wrk.RestTemplate;
 import net.ocheyedan.wrk.cmd.Args;
-import net.ocheyedan.wrk.cmd.Command;
 import net.ocheyedan.wrk.trello.Organization;
-import net.ocheyedan.wrk.trello.TrelloUtil;
+import net.ocheyedan.wrk.trello.Trello;
 import org.codehaus.jackson.type.TypeReference;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * User: blangel
@@ -23,8 +25,8 @@ public final class Orgs extends IdCommand {
 
     public Orgs(Args args) {
         super(args);
-        url = TrelloUtil.url("https://trello.com/1/members/my/organizations?key=%s&token=%s", TrelloUtil.APP_DEV_KEY,
-                TrelloUtil.USR_TOKEN);
+        url = Trello.url("https://trello.com/1/members/my/organizations?key=%s&token=%s", Trello.APP_DEV_KEY,
+                Trello.USR_TOKEN);
         description = "Your organizations:";
     }
 

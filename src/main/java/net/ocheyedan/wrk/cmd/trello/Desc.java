@@ -8,8 +8,6 @@ import net.ocheyedan.wrk.trello.*;
 import org.codehaus.jackson.type.TypeReference;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,26 +33,26 @@ public final class Desc extends IdCommand {
             TrelloId id = parseWrkId(args.args.get(0), allPrefix);
             if (id.idWithTypePrefix.startsWith("o:")) {
                 String orgId = id.idWithTypePrefix.substring(2);
-                url = TrelloUtil.url("https://trello.com/1/organizations/%s?key=%s&token=%s", orgId,
-                        TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+                url = Trello.url("https://trello.com/1/organizations/%s?key=%s&token=%s", orgId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
                 description = String.format("Description of organization ^b^%s^r^:", orgId);
                 type = Type.Org;
             } else if (id.idWithTypePrefix.startsWith("b:")) {
                 String boardId = id.idWithTypePrefix.substring(2);
-                url = TrelloUtil.url("https://trello.com/1/boards/%s?key=%s&token=%s", boardId,
-                        TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+                url = Trello.url("https://trello.com/1/boards/%s?key=%s&token=%s", boardId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
                 description = String.format("Description of board ^b^%s^r^:", boardId);
                 type = Type.Board;
             } else if (id.idWithTypePrefix.startsWith("c:")) {
                 String cardId = id.idWithTypePrefix.substring(2);
-                url = TrelloUtil.url("https://trello.com/1/cards/%s?key=%s&token=%s", cardId,
-                        TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+                url = Trello.url("https://trello.com/1/cards/%s?key=%s&token=%s", cardId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
                 description = String.format("Description of card ^b^%s^r^:", cardId);
                 type = Type.Card;
             } else if (id.idWithTypePrefix.startsWith("m:")) {
                 String memberId = id.idWithTypePrefix.substring(2);
-                url = TrelloUtil.url("https://trello.com/1/members/%s?key=%s&token=%s", memberId,
-                        TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+                url = Trello.url("https://trello.com/1/members/%s?key=%s&token=%s", memberId,
+                        Trello.APP_DEV_KEY, Trello.USR_TOKEN);
                 description = String.format("Description of member ^b^%s^r^:", memberId);
                 type = Type.Member;
             } else {
