@@ -37,6 +37,8 @@ public final class Usage extends Command {
         Output.print("        assigns the user to the ^b^card-id^r^ which is either the Trello or wrk id of a card.");
         Output.print("    ^b^quit <card-id>^r^");
         Output.print("        un-assigns the user from the ^b^card-id^r^ which is either the Trello or wrk id of a card.");
+        Output.print("    ^b^close b:<board-id>|c:<card-id>^r^");
+        Output.print("        closes the ^b^board-id^r^|^b^card-id^r^ which is either the Trello or wrk id of a board|card.");
         Output.print("    ^b^pop [num|all]^r^");
         Output.print("        pops 1 (or ^b^num^r^ or ^b^all^r^) of the queued wrk id results.");
 

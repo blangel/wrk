@@ -22,6 +22,10 @@ public final class RestTemplate {
         return invoke(restfulEndpoint, "POST", forResultType);
     }
 
+    public static <T> T put(String restfulEndpoint, TypeReference<T> forResultType) {
+        return invoke(restfulEndpoint, "PUT", forResultType);
+    }
+
     public static <T> T delete(String restfulEndpoint, TypeReference<T> forResultType) {
         return invoke(restfulEndpoint, "DELETE", forResultType);
     }

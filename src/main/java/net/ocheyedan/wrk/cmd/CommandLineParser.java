@@ -45,6 +45,8 @@ public final class CommandLineParser {
             return new On(parse(args, 1));
         } else if ("quit".equals(args[0])) {
             return new Quit(parse(args, 1));
+        } else if ("close".equals(args[0])) {
+            return new Close(parse(args, 1));
         } else if ("pop".equals(args[0])) {
             return new Pop(parse(args, 1));
         } else {

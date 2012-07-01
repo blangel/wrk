@@ -39,6 +39,8 @@ abstract class IdCommand extends Command {
     @SuppressWarnings("serial")
     protected static final Set<String> cardsPrefix = new HashSet<String>(1) { { add("c:"); } };
     @SuppressWarnings("serial")
+    protected static final Set<String> boardsCardsPrefix = new HashSet<String>(1) { { add("b:"); add("c:"); } };
+    @SuppressWarnings("serial")
     protected static final Set<String> allPrefix = new HashSet<String>(1) { { add("o:"); add("b:"); add("c:"); } };
 
     private final File wrkIdsFile;
