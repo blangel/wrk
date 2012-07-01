@@ -50,11 +50,12 @@ public final class Usage extends Command {
         Output.print("        un-assigns the user from the ^b^card-id^r^ which is the Trello or wrk id of a card.");
         Output.print("    ^b^unassign <member-id> from <card-id>^r^");
         Output.print("        un-assigns the ^b^member-id^r^ from the ^b^card-id^r^ which are the Trello or wrk ids of a member/card.");
+        Output.print("    ^b^move l:<list-id>|c:<card-id> to b:<board-id>|l:<list-id>");
+        Output.print("        moves the ^b^list-id^r^|^b^card-id^r^ to the given ^b^board-id^r^|^b^list-id^r^ which are the Trello or wrk ids of a list|card / board|list.");
         Output.print("    ^b^close b:<board-id>|l:<list-id>|c:<card-id>^r^");
         Output.print("        closes the ^b^board-id^r^|^b^list-id^r^|^b^card-id^r^ which is the Trello or wrk id of a board|list|card.");
         Output.print("        Note, if using a wrk id the prefix is not necessary as wrk ids know their type.");
         Output.print("    ^b^pop [num|all]^r^");
         Output.print("        pops 1 (or ^b^num^r^ or ^b^all^r^) of the queued wrk id results.");
-
     }
 }

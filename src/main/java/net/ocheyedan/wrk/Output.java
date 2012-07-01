@@ -105,6 +105,10 @@ public final class Output {
      * True if environment variable TERM is set to a non-null value.
      */
     private static final AtomicBoolean withinTerminal = new AtomicBoolean(true);
+    /**
+     * True if the script which invoked wrk is being piped (i.e., non-tty).
+     */
+    private static final AtomicBoolean beingPiped = new AtomicBoolean(false);
 
     /**
      * A mapping of easily identifiable words to a {@link TermCode} object for colored output.
@@ -114,7 +118,9 @@ public final class Output {
     static void init(boolean coloredOutput) {
         String terminal = System.getenv("TERM");
         withinTerminal.set(terminal != null);
-        boolean useColor = withinTerminal.get() && coloredOutput;
+        String piped = System.getProperty("wrk.piped");
+        beingPiped.set((piped != null) && "true".equalsIgnoreCase(piped));
+        boolean useColor = withinTerminal.get() && coloredOutput && !beingPiped.get();
         Output.coloredOutput.set(useColor);
         // TODO - what are the range of terminal values and what looks best for each?
         TERM_CODES.put("error", new TermCode(Pattern.compile("\\^error\\^"), "[\u001b[1;31merr!\u001b[0m]", "[err!]"));
