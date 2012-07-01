@@ -3,14 +3,13 @@ package net.ocheyedan.wrk.cmd.trello;
 import net.ocheyedan.wrk.Output;
 import net.ocheyedan.wrk.RestTemplate;
 import net.ocheyedan.wrk.cmd.Args;
-import net.ocheyedan.wrk.cmd.Command;
 import net.ocheyedan.wrk.cmd.Usage;
-import net.ocheyedan.wrk.trello.Action;
 import net.ocheyedan.wrk.trello.Member;
 import net.ocheyedan.wrk.trello.TrelloUtil;
 import org.codehaus.jackson.type.TypeReference;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +27,7 @@ public final class Members extends IdCommand {
     public Members(Args args) {
         super(args);
         if ((args.args.size() == 2) && "in".equals(args.args.get(0))) {
-            TrelloId id = parseWrkId(args.args.get(1), allPrefix);
+            TrelloId id = parseWrkId(args.args.get(1), orgsBoardsCardsPrefix);
             if (id.idWithTypePrefix.startsWith("o:")) {
                 String orgId = id.idWithTypePrefix.substring(2);
                 url = TrelloUtil.url("https://trello.com/1/organizations/%s/members?key=%s&token=%s", orgId,
@@ -63,11 +62,16 @@ public final class Members extends IdCommand {
             Output.print("  ^black^None^r^");
             return Collections.emptyMap();
         }
+        Map<String, String> wrkIds = new HashMap<String, String>(members.size());
+        int memberIndex = 1;
         for (Member member : members) {
-            Output.print("  ^b^%s^r^", member.getFullName());
+            String wrkId = "wrk" + memberIndex++;
+            wrkIds.put(wrkId, String.format("m:%s", member.getId()));
+
+            Output.print("  ^b^%s^r^ ^black^| %s^r^", member.getFullName(), wrkId);
             Output.print("    ^black^username^r^ %s", member.getUsername());
         }
-        return Collections.emptyMap();
+        return wrkIds;
     }
 
 }

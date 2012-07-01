@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * User: blangel
@@ -22,18 +23,27 @@ public final class Config {
 
         private final Boolean color;
 
+        private final String editor;
+
         private JsonFile() {
-            this(null);
+            this(null, null);
         }
 
-        private JsonFile(Boolean color) {
+        private JsonFile(Boolean color, String editor) {
             this.color = color;
+            this.editor = editor;
         }
 
         public Boolean getColor() {
             return color;
         }
+
+        public String getEditor() {
+            return editor;
+        }
     }
+
+    public static final AtomicReference<String> editor = new AtomicReference<String>();
 
     public static void init() {
         boolean color = true;
@@ -43,12 +53,16 @@ public final class Config {
             if (configFile.exists()) {
                 JsonFile config = Json.mapper().readValue(configFile, JsonFile.class);
                 color = (config.getColor() == null) || config.getColor();
+                editor.set(config.getEditor());
             }
         } catch (IOException ioe) {
             // ignore and take defaults
         }
         Output.init(color);
+    }
 
+    public static String getEditor() {
+        return editor.get();
     }
 
     private Config() { }

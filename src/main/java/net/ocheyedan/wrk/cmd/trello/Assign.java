@@ -18,19 +18,25 @@ import java.util.Map;
  * Date: 6/30/12
  * Time: 5:16 PM
  */
-public final class On extends IdCommand {
+public final class Assign extends IdCommand {
 
     private final String url;
 
     private final String description;
 
-    public On(Args args) {
+    public Assign(Args args) {
         super(args);
         if (args.args.size() == 1) {
             TrelloId cardId = parseWrkId(args.args.get(0), cardsPrefix);
             url = TrelloUtil.url("https://trello.com/1/cards/%s/members?value=%s&key=%s&token=%s", cardId.id,
                     TrelloUtil.getUsrId(), TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
             description = String.format("Assigning user to card ^b^%s^r^:", cardId.id);
+        } else if ((args.args.size() == 3) && "to".equals(args.args.get(1))) {
+            TrelloId cardId = parseWrkId(args.args.get(2), cardsPrefix);
+            TrelloId memberId = parseWrkId(args.args.get(0), membersPrefix);
+            url = TrelloUtil.url("https://trello.com/1/cards/%s/members?value=%s&key=%s&token=%s", cardId.id,
+                    memberId.id, TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            description = String.format("Assigning user ^b^%s^r^ to card ^b^%s^r^:", memberId.id, cardId.id);
         } else {
             url = description = null;
         }

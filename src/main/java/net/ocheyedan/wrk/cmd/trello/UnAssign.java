@@ -17,19 +17,25 @@ import java.util.Map;
  * Date: 6/30/12
  * Time: 8:48 PM
  */
-public final class Quit extends IdCommand {
+public final class UnAssign extends IdCommand {
 
     private final String url;
 
     private final String description;
 
-    public Quit(Args args) {
+    public UnAssign(Args args) {
         super(args);
         if (args.args.size() == 1) {
             IdCommand.TrelloId cardId = parseWrkId(args.args.get(0), cardsPrefix);
             url = TrelloUtil.url("https://trello.com/1/cards/%s/members/%s?key=%s&token=%s", cardId.id,
-                    TrelloUtil.getUsrId(), TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+                                 TrelloUtil.getUsrId(), TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
             description = String.format("Un-assigning user from card ^b^%s^r^:", cardId.id);
+        } else if ((args.args.size() == 3) && "from".equals(args.args.get(1))) {
+            TrelloId cardId = parseWrkId(args.args.get(2), cardsPrefix);
+            TrelloId memberId = parseWrkId(args.args.get(0), membersPrefix);
+            url = TrelloUtil.url("https://trello.com/1/cards/%s/members/%s?key=%s&token=%s", cardId.id,
+                                 memberId.id, TrelloUtil.APP_DEV_KEY, TrelloUtil.USR_TOKEN);
+            description = String.format("Un-assigning user ^b^%s^r^ from card ^b^%s^r^:", memberId.id, cardId.id);
         } else {
             url = description = null;
         }
