@@ -31,10 +31,15 @@ public final class Usage extends Command {
         Output.print("        lists the open cards for ^b^board-id^r^ which is the Trello or wrk id of a board.");
         Output.print("    ^b^comments in <card-id>^r^");
         Output.print("        lists the comments for ^b^card-id^r^ which is the Trello or wrk id of a card.");
-        Output.print("    ^b^desc o:<org-id>|b:<board-id>|c:<card-id>|m:<member-id>^r^");
-        Output.print("        describe the value of ^b^org-id^r^|^b^board-id^r^|^b^card-id^r^|^b^member-id^r^ which is the Trello or wrk id of a organization|board|card|member.");
         Output.print("    ^b^members in o:<org-id>|b:<board-id>|c:<card-id>^r^");
         Output.print("        lists the members in ^b^org-id^r^|^b^board-id^r^|^b^card-id^r^ which is the Trello or wrk id of a organization|board|card.");
+        Output.print("        Note, if using a wrk id the prefix is not necessary as wrk ids know their type.");
+        Output.print("    ^b^desc o:<org-id>|b:<board-id>|c:<card-id>|m:<member-id>^r^");
+        Output.print("        describe the value of ^b^org-id^r^|^b^board-id^r^|^b^card-id^r^|^b^member-id^r^ which is the Trello or wrk id of a organization|board|card|member.");
+        Output.print("        Note, if using a wrk id the prefix is not necessary as wrk ids know their type.");
+        Output.print("    ^b^comment on <card-id> [message]^r^");
+        Output.print("        adds ^b^message^r^ as a comment on ^b^card-id^r^ which is the Trello or wrk id of a card.");
+        Output.print("        Note, if ^b^message^r^ is not provided the ^b^editor^r^ (defined in ^b^~/.wrk/config^r^) will be opened.");
         Output.print("    ^b^assign <card-id>^r^");
         Output.print("        assigns the user to the ^b^card-id^r^ which is the Trello or wrk id of a card.");
         Output.print("    ^b^assign <member-id> to <card-id>^r^");
@@ -45,6 +50,7 @@ public final class Usage extends Command {
         Output.print("        un-assigns the ^b^member-id^r^ from the ^b^card-id^r^ which are the Trello or wrk ids of a member/card.");
         Output.print("    ^b^close b:<board-id>|c:<card-id>^r^");
         Output.print("        closes the ^b^board-id^r^|^b^card-id^r^ which is the Trello or wrk id of a board|card.");
+        Output.print("        Note, if using a wrk id the prefix is not necessary as wrk ids know their type.");
         Output.print("    ^b^pop [num|all]^r^");
         Output.print("        pops 1 (or ^b^num^r^ or ^b^all^r^) of the queued wrk id results.");
 
