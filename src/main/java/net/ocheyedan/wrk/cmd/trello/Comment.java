@@ -48,7 +48,7 @@ public final class Comment extends IdCommand {
 
     private String validate(String comment) {
         if ((comment == null) || comment.isEmpty()) {
-            Output.print("^red^Comment was empty.^r^");
+            Output.print("^red^Comment was empty, doing nothing.^r^");
             System.exit(0);
         }
         if (comment.length() > 16384) {
