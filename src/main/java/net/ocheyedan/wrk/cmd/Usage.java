@@ -89,6 +89,12 @@ public final class Usage extends Command {
                 } else if ("move".equals(subcommand)) {
                     Output.print("^b^move <card-id> to <list-id>");
                     Output.print("    moves the ^b^card-id^r^ to the given ^b^list-id^r^ which are the Trello or wrk ids of a card/list.");
+                } else if ("label".equals(subcommand)) {
+                    Output.print("^b^label <card-id> with <color>");
+                    Output.print("    labels the ^b^card-id^r^ which is the Trello or wrk id of a card with ^b^color^r^ which is one of green|yellow|orange|red|purple|blue.");
+                } else if ("unlabel".equals(subcommand)) {
+                    Output.print("^b^unlabel <color> from <card-id>");
+                    Output.print("    unlabels the ^b^color^r^ which is one of green|yellow|orange|red|purple|blue from ^b^card-id^r^ which is the Trello or wrk id of a card.");
                 } else if ("close".equals(subcommand)) {
                     Output.print("^b^close b:<board-id>|l:<list-id>|c:<card-id>^r^");
                     Output.print("    closes the ^b^board-id^r^|^b^list-id^r^|^b^card-id^r^ which is the Trello or wrk id of a board|list|card.");
@@ -120,6 +126,8 @@ public final class Usage extends Command {
         Output.print("    ^b^unassign^r^  Un-assigns the user or a member from a particular card.");
         Output.print("    ^b^create^r^    Creates a board/list/card.");
         Output.print("    ^b^move^r^      Moves a card to a list.");
+        Output.print("    ^b^label^r^     Labels a card with a color.");
+        Output.print("    ^b^unlabel^r^   Un-labels a color from a card.");
         Output.print("    ^b^close^r^     Closes a board/list/card.");
         Output.print("    ^b^pop^r^       Pops wrk ids from the queue of wrk id results.");
         Output.print("");

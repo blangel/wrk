@@ -55,6 +55,10 @@ public final class CommandLineParser {
             return new Create(parse(args, 1));
         } else if ("move".equals(args[0])) {
             return new Move(parse(args, 1));
+        } else if ("label".equals(args[0])) {
+            return new Labels(parse(args, 1));
+        } else if ("unlabel".equals(args[0])) {
+            return new UnLabels(parse(args, 1));
         } else if ("close".equals(args[0])) {
             return new Close(parse(args, 1));
         } else if ("pop".equals(args[0])) {
