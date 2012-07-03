@@ -153,6 +153,8 @@ abstract class IdCommand extends Command {
             return "orgs";
         } else if ("m:".equals(prefix)) {
             return "members";
+        } else if ("l:".equals(prefix)) {
+            return "lists";
         } else {
             return "<unknown>";
         }
