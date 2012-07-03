@@ -37,8 +37,12 @@ public final class Orgs extends IdCommand {
             Output.print("  ^black^None^r^");
             return Collections.emptyMap();
         }
+        return printOrgs(orgs, 1);
+    }
+
+    static Map<String, String> printOrgs(List<Organization> orgs, int indexBase) {
         Map<String, String> wrkIds = new HashMap<String, String>(orgs.size());
-        int orgIndex = 1;
+        int orgIndex = indexBase;
         for (Organization organization : orgs) {
             String wrkId = "wrk" + orgIndex++;
             wrkIds.put(wrkId, String.format("o:%s", organization.getId()));

@@ -62,8 +62,12 @@ public final class Members extends IdCommand {
             Output.print("  ^black^None^r^");
             return Collections.emptyMap();
         }
+        return printMembers(members, 1);
+    }
+
+    static Map<String, String> printMembers(List<Member> members, int indexBase) {
         Map<String, String> wrkIds = new HashMap<String, String>(members.size());
-        int memberIndex = 1;
+        int memberIndex = indexBase;
         for (Member member : members) {
             String wrkId = "wrk" + memberIndex++;
             wrkIds.put(wrkId, String.format("m:%s", member.getId()));

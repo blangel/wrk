@@ -45,6 +45,8 @@ public final class CommandLineParser {
             return new Members(parse(args, 1));
         } else if ("desc".equals(args[0])) {
             return new Desc(parse(args, 1));
+        } else if ("search".equals(args[0])) {
+            return new Search(parse(args, 1));
         } else if ("comment".equals(args[0])) {
             return new Comment(parse(args, 1));
         } else if ("assign".equals(args[0])) {

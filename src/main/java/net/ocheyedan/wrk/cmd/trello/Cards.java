@@ -63,8 +63,12 @@ public final class Cards extends IdCommand {
             Output.print("  ^black^None^r^");
             return Collections.emptyMap();
         }
+        return printCards(cards, 1);
+    }
+
+    static Map<String, String> printCards(List<Card> cards, int indexBase) {
         Map<String, String> wrkIds = new HashMap<String, String>(cards.size());
-        int cardIndex = 1;
+        int cardIndex = indexBase;
         for (Card card : cards) {
             String wrkId = "wrk" + cardIndex++;
             wrkIds.put(wrkId, String.format("c:%s", card.getId()));

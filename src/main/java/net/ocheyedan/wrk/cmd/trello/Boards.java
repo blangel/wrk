@@ -52,8 +52,12 @@ public final class Boards extends IdCommand {
             Output.print("  ^black^None^r^");
             return Collections.emptyMap();
         }
+        return printBoards(boards, 1);
+    }
+
+    static Map<String, String> printBoards(List<Board> boards, int indexBase) {
         Map<String, String> wrkIds = new HashMap<String, String>(boards.size());
-        int boardIndex = 1;
+        int boardIndex = indexBase;
         for (Board board : boards) {
             String wrkId = "wrk" + boardIndex++;
             wrkIds.put(wrkId, String.format("b:%s", board.getId()));

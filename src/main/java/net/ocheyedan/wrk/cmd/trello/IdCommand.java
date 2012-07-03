@@ -109,13 +109,22 @@ abstract class IdCommand extends Command {
     }
 
     static String validate(String value, String type, String plural) {
+        return validate(value, type, plural, false);
+    }
+
+    static String validate(String value, String type, String plural, boolean failOnLength) {
         if ((value == null) || value.isEmpty()) {
             Output.print("^red^%s was empty, doing nothing.^r^", type);
             System.exit(0);
         }
         if (value.length() > 16384) {
-            Output.print("^red^Trello %s must be less than 16,384 characters, shortening.^r^", plural);
-            return value.substring(0, 16384);
+            if (!failOnLength) {
+                Output.print("^red^Trello %s must be less than 16,384 characters, shortening.^r^", plural);
+                return value.substring(0, 16384);
+            } else {
+                Output.print("^red^Trello %s must be less than 16,384 characters, doing nothing.^r^", plural);
+                System.exit(0);
+            }
         }
         return value;
     }

@@ -62,6 +62,22 @@ public final class Usage extends Command {
                     Output.print("^b^desc o:<org-id>|b:<board-id>|l:<list-id>|c:<card-id>|m:<member-id>^r^");
                     Output.print("    describe the value of ^b^org-id^r^|^b^board-id^r^|^b^list-id^r^|^b^card-id^r^|^b^member-id^r^ which is the Trello or wrk id of an organization|board|list|card|member.");
                     Output.print("    Note, if using a wrk id the prefix is not necessary as wrk ids know their type.");
+                } else if ("search".equals(subcommand)) {
+                    Output.print("^b^search <search terms>");
+                    Output.print("    searches for organizations/boards/cards/members using the ^b^search terms^r^.");
+                    Output.print("^b^search orgs <search terms>");
+                    Output.print("    searches for organizations using the ^b^search terms^r^.");
+                    Output.print("^b^search boards <search terms>");
+                    Output.print("    searches for boards using the ^b^search terms^r^.");
+                    Output.print("^b^search cards <search terms>");
+                    Output.print("    searches for cards using the ^b^search terms^r^.");
+                    Output.print("^b^search members <search terms>");
+                    Output.print("    searches for members using the ^b^search terms^r^.");
+                    Output.print("");
+                    Output.print("For details on the Trello search modifiers available- ^black^http://blog.trello.com/super-search/^r^.");
+                    Output.print("");
+                    Output.print("The resulting organizations/boards/cards/members will be assigned wrk ids and placed in the wrk id results queue.");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("comment".equals(subcommand)) {
                     Output.print("^b^comment on <card-id> [message]^r^");
                     Output.print("    adds ^b^message^r^ as a comment on ^b^card-id^r^ which is the Trello or wrk id of a card.");
@@ -121,6 +137,7 @@ public final class Usage extends Command {
         Output.print("    ^b^comments^r^  Lists comments for a particular card.");
         Output.print("    ^b^members^r^   Lists members belonging to an organization, board or card.");
         Output.print("    ^b^desc^r^      Prints a description of an organization, board, list, card or member.");
+        Output.print("    ^b^search^r^    Searches for organizations, boards, cards, members using the Trello search API.");
         Output.print("    ^b^comment^r^   Creates a comment on a particular card.");
         Output.print("    ^b^assign^r^    Assigns the user or a member to a particular card.");
         Output.print("    ^b^unassign^r^  Un-assigns the user or a member from a particular card.");
