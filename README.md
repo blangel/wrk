@@ -6,7 +6,7 @@ Wrk is a command line interface to Trello.
 Installation
 --------------
 
-Download the tar file [wrk.tar](https://github.com/downloads/blangel/wrk/wrk.tar)
+Download the tar file [wrk.tar.gz](https://github.com/downloads/blangel/wrk/wrk-latest.tar.gz)
 
 Un-package the tar file to a directory of your choosing (say `/opt/wrk`) and then make sure the following properties are set as environmental variables:
 
