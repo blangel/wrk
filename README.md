@@ -18,6 +18,12 @@ Now add `${WRK_HOME}/bin` to your `$PATH`
 
 Finally, create file `~/.wrk/token` and save in it your Trello token.  For help in creating a token see [here](https://trello.com/docs/gettingstarted/index.html#getting-a-token-from-a-user) (using your own application key or this one `8d56bbd601877abfd13150a999a840d0`).
 
+Versions
+-----------
+
+`1.0` - initial release
+`1.0.1` - added search command
+
 Usage
 -------
 
