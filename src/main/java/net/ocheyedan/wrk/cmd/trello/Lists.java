@@ -46,13 +46,17 @@ public final class Lists extends IdCommand {
             Output.print("  ^black^None^r^");
             return Collections.emptyMap();
         }
+        return printLists(lists, 1);
+    }
+
+    static Map<String, String> printLists(List<net.ocheyedan.wrk.trello.List> lists, int baseIndex) {
         Map<String, String> wrkIds = new HashMap<String, String>(lists.size());
-        int cardIndex = 1;
         for (net.ocheyedan.wrk.trello.List list : lists) {
-            String wrkId = "wrk" + cardIndex++;
+            String wrkId = "wrk" + baseIndex++;
             wrkIds.put(wrkId, String.format("l:%s", list.getId()));
 
-            Output.print("  ^b^%s^r^ ^black^| %s^r^", list.getName(), wrkId);
+            String closed = ((list.getClosed() != null) && list.getClosed()) ? "^black^[closed] ^r^" : "^b^";
+            Output.print("  %s%s^r^ ^black^| %s^r^", closed, list.getName(), wrkId);
         }
         return wrkIds;
     }

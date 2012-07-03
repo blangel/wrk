@@ -62,7 +62,8 @@ public final class Boards extends IdCommand {
             String wrkId = "wrk" + boardIndex++;
             wrkIds.put(wrkId, String.format("b:%s", board.getId()));
 
-            Output.print("  ^b^%s^r^ ^black^| %s^r^", board.getName(), wrkId);
+            String closed = ((board.getClosed() != null) && board.getClosed()) ? "^black^[closed] ^r^" : "^b^";
+            Output.print("  %s%s^r^ ^black^| %s^r^", closed, board.getName(), wrkId);
             Output.print("    ^black^%s^r^", board.getUrl());
         }
         return wrkIds;

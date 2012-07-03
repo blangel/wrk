@@ -74,7 +74,8 @@ public final class Cards extends IdCommand {
             wrkIds.put(wrkId, String.format("c:%s", card.getId()));
 
             String labels = buildLabel(card.getLabels());
-            Output.print("  ^b^%s^r^%s ^black^| %s^r^", card.getName(), labels, wrkId);
+            String closed = ((card.getClosed() != null) && card.getClosed()) ? "^black^[closed] ^r^" : "^b^";
+            Output.print("  %s%s^r^%s ^black^| %s^r^", closed, card.getName(), labels, wrkId);
             Output.print("    ^black^%s^r^", getPrettyUrl(card));
         }
         return wrkIds;

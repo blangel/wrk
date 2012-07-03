@@ -98,7 +98,8 @@ public final class Desc extends IdCommand {
                     Output.print("^red^Invalid id or not found.^r^");
                     break;
                 }
-                Output.print("  ^b^%s^r^ ^black^| %s^r^", board.getName(), board.getId());
+                String boardClosed = ((board.getClosed() != null) && board.getClosed()) ? "^black^[closed] ^r^" : "^b^";
+                Output.print("  %s%s^r^ ^black^| %s^r^", boardClosed, board.getName(), board.getId());
                 desc = (board.getDesc() == null ? "" : board.getDesc());
                 if (!desc.isEmpty()) {
                     Output.print("    %s", desc);
@@ -111,7 +112,8 @@ public final class Desc extends IdCommand {
                     Output.print("^red^Invalid id or not found.^r^");
                     break;
                 }
-                Output.print("  ^b^%s^r^ ^black^| %s^r^", list.getName(), list.getId());
+                String closed = ((list.getClosed() != null) && list.getClosed()) ? "^black^[closed] ^r^" : "^b^";
+                Output.print("  %s%s^r^ ^black^| %s^r^", closed, list.getName(), list.getId());
                 break;
             case Card:
                 Card card = RestTemplate.get(url, new TypeReference<Card>() { });
@@ -120,7 +122,8 @@ public final class Desc extends IdCommand {
                     break;
                 }
                 String labels = Cards.buildLabel(card.getLabels());
-                Output.print("  ^b^%s^r^%s ^black^| %s^r^", card.getName(), labels, card.getId());
+                String cardClosed = ((card.getClosed() != null) && card.getClosed()) ? "^black^[closed] ^r^" : "^b^";
+                Output.print("  %s%s^r^%s ^black^| %s^r^", cardClosed, card.getName(), labels, card.getId());
                 desc = (card.getDesc() == null ? "" : card.getDesc());
                 if (!desc.isEmpty()) {
                     Output.print("    %s", desc);
