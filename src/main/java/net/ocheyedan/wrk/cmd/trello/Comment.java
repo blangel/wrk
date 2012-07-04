@@ -8,8 +8,7 @@ import net.ocheyedan.wrk.cmd.Usage;
 import net.ocheyedan.wrk.trello.Trello;
 import org.codehaus.jackson.type.TypeReference;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Scanner;
@@ -48,16 +47,21 @@ public final class Comment extends IdCommand {
         String editor = Config.getEditor();
         if ((editor == null) || editor.isEmpty()) {
             Output.print("^red^No editor defined within ~/.wrk/config, add an editor. For instance;^r^");
-            Output.print("^b^{ \"color\": true, \"editor\": \"emacs\" }^r^");
+            Output.print("^b^{ \"color\": true, \"editor\": \"emacs\", \"editorOpts\": \"-nw -Q\" }^r^");
             System.exit(1);
         }
         try {
             File temp = File.createTempFile("wrk", ".comment");
-            String editorCommand = String.format("%s -nw -Q %s < /dev/tty", editor, temp.getPath());
+            String editorOptions = Config.getEditorOpts();
+            String editorCommand = String.format("%s %s %s < /dev/tty > /dev/tty", editor, editorOptions, temp.getPath());
             Process process = new ProcessBuilder("/bin/sh", "-c", editorCommand).redirectErrorStream(true).start();
             int result = process.waitFor();
             if (result != 0) {
+                Output.print("^red^Could not execute edit command^r^");
+                Output.print("^red^^i^%s^r^", editorCommand);
                 Output.print("^red^Editor exit code %d^r^", result);
+                Output.print("^red^Check editor value within ~/.wrk/config. For instance;^r^");
+                Output.print("^b^{ \"color\": true, \"editor\": \"emacs\", \"editorOpts\": \"-nw -Q\" }^r^");
                 System.exit(result);
             }
             Scanner scanner = new Scanner(temp).useDelimiter("\\Z");

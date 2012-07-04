@@ -23,13 +23,16 @@ public final class Config {
 
         private final String editor;
 
+        private final String editorOpts;
+
         private JsonFile() {
-            this(null, null);
+            this(null, null, null);
         }
 
-        private JsonFile(Boolean color, String editor) {
+        private JsonFile(Boolean color, String editor, String editorOpts) {
             this.color = color;
             this.editor = editor;
+            this.editorOpts = editorOpts;
         }
 
         public Boolean getColor() {
@@ -39,9 +42,23 @@ public final class Config {
         public String getEditor() {
             return editor;
         }
+
+        public String getEditorOpts() {
+            return editorOpts;
+        }
     }
 
-    public static final AtomicReference<String> editor = new AtomicReference<String>();
+    private static final AtomicReference<String> editor = new AtomicReference<String>();
+
+    private static final AtomicReference<String> editorOpts = new AtomicReference<String>();
+
+    private static final Boolean defaultColor = true;
+
+    private static final String defaultEditor = System.getProperty("wrk.editor");
+
+    private static final String defaultEmacsOpts = "-nw -Q";
+
+    private static final String defaultViOpts = "";
 
     public static void init() {
         boolean color = true;
@@ -52,6 +69,14 @@ public final class Config {
                 JsonFile config = Json.mapper().readValue(configFile, JsonFile.class);
                 color = (config.getColor() == null) || config.getColor();
                 editor.set(config.getEditor());
+                editorOpts.set(config.getEditorOpts());
+            } else {
+                // set defaults for user
+                String defaultEditorOpts = (defaultEditor.endsWith("emacs") ? defaultEmacsOpts : defaultViOpts);
+                JsonFile defaultConfig = new JsonFile(defaultColor, defaultEditor, defaultEditorOpts);
+                editor.set(defaultConfig.getEditor());
+                editorOpts.set(defaultConfig.getEditorOpts());
+                Json.mapper().writeValue(configFile, defaultConfig);
             }
         } catch (IOException ioe) {
             // ignore and take defaults
@@ -61,6 +86,10 @@ public final class Config {
 
     public static String getEditor() {
         return editor.get();
+    }
+
+    public static String getEditorOpts() {
+        return editorOpts.get();
     }
 
     private Config() { }

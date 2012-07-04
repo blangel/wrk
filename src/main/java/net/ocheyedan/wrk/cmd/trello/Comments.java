@@ -46,6 +46,7 @@ public final class Comments extends IdCommand {
             Output.print("  ^black^None^r^");
             return Collections.emptyMap();
         }
+        Collections.reverse(comments); // reverse order of comments so most recent appear on bottom
         String color = "white";
         for (Action comment : comments) {
             Output.print("^%s^|^r^%n^%s^|^r^ %s", color, color, comment.getMemberCreator().getFullName());
