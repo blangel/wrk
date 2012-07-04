@@ -35,10 +35,6 @@ public final class Move extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         Map<String, Object> result = RestTemplate.put(url, new TypeReference<Map<String, Object>>() {
         });
@@ -48,5 +44,13 @@ public final class Move extends IdCommand {
             Output.print("  ^b^Moved!^r^", result);
         }
         return Collections.emptyMap();
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "move";
     }
 }

@@ -36,10 +36,6 @@ public final class Lists extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         List<net.ocheyedan.wrk.trello.List> lists = RestTemplate.get(url, new TypeReference<List<net.ocheyedan.wrk.trello.List>>() { });
         if ((lists == null) || lists.isEmpty()) {
@@ -47,6 +43,14 @@ public final class Lists extends IdCommand {
             return Collections.emptyMap();
         }
         return printLists(lists, 1);
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "lists";
     }
 
     static Map<String, String> printLists(List<net.ocheyedan.wrk.trello.List> lists, int baseIndex) {

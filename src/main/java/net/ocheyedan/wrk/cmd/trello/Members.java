@@ -52,10 +52,6 @@ public final class Members extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         List<Member> members = RestTemplate.get(url, new TypeReference<List<Member>>() { });
         if ((members == null) || members.isEmpty()) {
@@ -63,6 +59,14 @@ public final class Members extends IdCommand {
             return Collections.emptyMap();
         }
         return printMembers(members, 1);
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "members";
     }
 
     static Map<String, String> printMembers(List<Member> members, int indexBase) {

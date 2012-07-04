@@ -42,10 +42,6 @@ public final class UnAssign extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         List<Member> members = RestTemplate.delete(url, new TypeReference<List<Member>>() {
         });
@@ -55,5 +51,13 @@ public final class UnAssign extends IdCommand {
             Output.print("  ^b^Un-assigned!^r^");
         }
         return Collections.emptyMap();
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "unassign";
     }
 }

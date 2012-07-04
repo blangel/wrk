@@ -65,10 +65,6 @@ public final class Create extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         Map<String, String> wrkIds = new HashMap<String, String>(1, 1.0f);
         String wrkId = "wrk1";
@@ -105,5 +101,13 @@ public final class Create extends IdCommand {
                 return wrkIds;
         }
         return Collections.emptyMap();
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "create";
     }
 }

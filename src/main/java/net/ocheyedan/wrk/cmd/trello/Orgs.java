@@ -40,6 +40,14 @@ public final class Orgs extends IdCommand {
         return printOrgs(orgs, 1);
     }
 
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "orgs";
+    }
+
     static Map<String, String> printOrgs(List<Organization> orgs, int indexBase) {
         Map<String, String> wrkIds = new HashMap<String, String>(orgs.size());
         int orgIndex = indexBase;

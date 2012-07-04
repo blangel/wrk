@@ -79,10 +79,6 @@ public final class Search extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         boolean hadResults = false;
         SearchResult searchResults = RestTemplate.get(url, new TypeReference<SearchResult>() { });
@@ -120,5 +116,13 @@ public final class Search extends IdCommand {
             Output.print("^black^No results.^r^");
         }
         return wrkIds;
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "search";
     }
 }

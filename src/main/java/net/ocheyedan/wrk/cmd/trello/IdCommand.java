@@ -4,6 +4,7 @@ import net.ocheyedan.wrk.Json;
 import net.ocheyedan.wrk.Output;
 import net.ocheyedan.wrk.cmd.Args;
 import net.ocheyedan.wrk.cmd.Command;
+import net.ocheyedan.wrk.cmd.Usage;
 import org.codehaus.jackson.type.TypeReference;
 
 import java.io.File;
@@ -77,7 +78,16 @@ abstract class IdCommand extends Command {
         this.existingHead = existingHead;
     }
 
+    protected abstract boolean valid();
+
+    protected abstract String getCommandName();
+
     @Override public final void run() {
+        if (!valid()) {
+            Output.print("^red^Invalid arguments to command ^i^%s^r^^red^: %s^r^", getCommandName(), args);
+            new Usage(getCommandName()).run();
+            return;
+        }
         Map<String, String> wrkids = _run();
         if (wrkids.isEmpty()) {
             return; // don't push an empty

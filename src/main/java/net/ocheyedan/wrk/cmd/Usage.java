@@ -2,6 +2,8 @@ package net.ocheyedan.wrk.cmd;
 
 import net.ocheyedan.wrk.Output;
 
+import java.util.ArrayList;
+
 /**
  * User: blangel
  * Date: 6/29/12
@@ -13,6 +15,11 @@ public final class Usage extends Command {
 
     public Usage(Args args) {
         super(args);
+    }
+
+    @SuppressWarnings("serial")
+    public Usage(final String subcommand) {
+        super(new Args(new ArrayList<String>() {{ add(subcommand); }}));
     }
 
     @Override public void run() {

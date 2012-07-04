@@ -36,10 +36,6 @@ public final class Comments extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         List<Action> comments = RestTemplate.get(url, new TypeReference<List<Action>>() { });
         if ((comments == null) || comments.isEmpty()) {
@@ -64,5 +60,13 @@ public final class Comments extends IdCommand {
             }
         }
         return Collections.emptyMap();
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "comments";
     }
 }

@@ -72,10 +72,6 @@ public final class Desc extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         String desc;
         switch (type) {
@@ -141,5 +137,13 @@ public final class Desc extends IdCommand {
                 break;
         }
         return Collections.emptyMap();
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "desc";
     }
 }

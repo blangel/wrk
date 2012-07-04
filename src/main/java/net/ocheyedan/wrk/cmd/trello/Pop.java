@@ -1,5 +1,6 @@
 package net.ocheyedan.wrk.cmd.trello;
 
+import net.ocheyedan.wrk.Output;
 import net.ocheyedan.wrk.cmd.Args;
 import net.ocheyedan.wrk.cmd.Usage;
 
@@ -39,11 +40,15 @@ public final class Pop extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (times == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         pop(times);
         return Collections.emptyMap();
+    }
+
+    @Override protected boolean valid() {
+        return (times != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "pop";
     }
 }

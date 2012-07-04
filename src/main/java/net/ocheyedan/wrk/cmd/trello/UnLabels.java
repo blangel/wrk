@@ -46,10 +46,6 @@ public final class UnLabels extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         List<Label> result = RestTemplate.delete(url, new TypeReference<List<Label>>() { });
         if (result == null) {
@@ -58,5 +54,13 @@ public final class UnLabels extends IdCommand {
             Output.print("  ^b^Un-labeled!^r^", result);
         }
         return Collections.emptyMap();
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "unlabel";
     }
 }

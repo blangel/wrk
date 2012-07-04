@@ -52,10 +52,6 @@ public final class Cards extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         List<Card> cards = RestTemplate.get(url, new TypeReference<List<Card>>() {
         });
@@ -64,6 +60,14 @@ public final class Cards extends IdCommand {
             return Collections.emptyMap();
         }
         return printCards(cards, 1);
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "cards";
     }
 
     static Map<String, String> printCards(List<Card> cards, int indexBase) {

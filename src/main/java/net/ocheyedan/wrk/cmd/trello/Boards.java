@@ -41,10 +41,6 @@ public final class Boards extends IdCommand {
     }
 
     @Override protected Map<String, String> _run() {
-        if (url == null) {
-            new Usage(args).run();
-            return Collections.emptyMap();
-        }
         Output.print(description);
         List<Board> boards = RestTemplate.get(url, new TypeReference<List<Board>>() {
         });
@@ -53,6 +49,14 @@ public final class Boards extends IdCommand {
             return Collections.emptyMap();
         }
         return printBoards(boards, 1);
+    }
+
+    @Override protected boolean valid() {
+        return (url != null);
+    }
+
+    @Override protected String getCommandName() {
+        return "boards";
     }
 
     static Map<String, String> printBoards(List<Board> boards, int indexBase) {

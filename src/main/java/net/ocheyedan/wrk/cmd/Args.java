@@ -16,4 +16,20 @@ public final class Args {
     public Args(List<String> args) {
         this.args = args;
     }
+
+    @Override public String toString() {
+        if ((args == null) || args.isEmpty()) {
+            return "<none>";
+        }
+        StringBuilder buffer = new StringBuilder();
+        boolean first = true;
+        for (String arg : args) {
+            if (!first) {
+                buffer.append(' ');
+            }
+            buffer.append(arg);
+            first = false;
+        }
+        return buffer.toString();
+    }
 }
