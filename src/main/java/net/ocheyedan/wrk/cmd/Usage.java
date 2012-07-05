@@ -58,6 +58,8 @@ public final class Usage extends Command {
                 } else if ("comments".equals(subcommand)) {
                     Output.print("^b^comments in <card-id>^r^");
                     Output.print("    lists the comments for ^b^card-id^r^ which is the Trello or wrk id of a card.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("members".equals(subcommand)) {
                     Output.print("^b^members in o:<org-id>|b:<board-id>|c:<card-id>^r^");
                     Output.print("    lists the members in ^b^org-id^r^|^b^board-id^r^|^b^card-id^r^ which is the Trello or wrk id of a organization|board|card.");
@@ -69,6 +71,8 @@ public final class Usage extends Command {
                     Output.print("^b^desc o:<org-id>|b:<board-id>|l:<list-id>|c:<card-id>|m:<member-id>^r^");
                     Output.print("    describe the value of ^b^org-id^r^|^b^board-id^r^|^b^list-id^r^|^b^card-id^r^|^b^member-id^r^ which is the Trello or wrk id of an organization|board|list|card|member.");
                     Output.print("    Note, if using a wrk id the prefix is not necessary as wrk ids know their type.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("search".equals(subcommand)) {
                     Output.print("^b^search <search terms>");
                     Output.print("    searches for organizations/boards/cards/members using the ^b^search terms^r^.");
@@ -89,16 +93,22 @@ public final class Usage extends Command {
                     Output.print("^b^comment on <card-id> [message]^r^");
                     Output.print("    adds ^b^message^r^ as a comment on ^b^card-id^r^ which is the Trello or wrk id of a card.");
                     Output.print("    Note, if ^b^message^r^ is not provided the ^b^editor^r^ (defined in ^b^~/.wrk/config^r^) will be opened.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("assign".equals(subcommand)) {
                     Output.print("^b^assign <card-id>^r^");
                     Output.print("    assigns the user to the ^b^card-id^r^ which is the Trello or wrk id of a card.");
                     Output.print("^b^assign <member-id> to <card-id>^r^");
                     Output.print("    assigns the ^b^member-id^r^ to the ^b^card-id^r^ which are the Trello or wrk ids of a member/card.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("unassign".equals(subcommand)) {
                     Output.print("^b^unassign <card-id>^r^");
                     Output.print("    un-assigns the user from the ^b^card-id^r^ which is the Trello or wrk id of a card.");
                     Output.print("^b^unassign <member-id> from <card-id>^r^");
                     Output.print("    un-assigns the ^b^member-id^r^ from the ^b^card-id^r^ which are the Trello or wrk ids of a member/card.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("create".equals(subcommand)) {
                     Output.print("^b^create board in <org-id> <name> [desc]");
                     Output.print("    creates a ^b^board^r^ named ^b^name^r^ (with ^b^desc^r^ if present) in ^b^org-id^r^ which is the Trello or wrk id of an organization.");
@@ -112,16 +122,24 @@ public final class Usage extends Command {
                 } else if ("move".equals(subcommand)) {
                     Output.print("^b^move <card-id> to <list-id>");
                     Output.print("    moves the ^b^card-id^r^ to the given ^b^list-id^r^ which are the Trello or wrk ids of a card/list.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("label".equals(subcommand)) {
                     Output.print("^b^label <card-id> with <color>");
                     Output.print("    labels the ^b^card-id^r^ which is the Trello or wrk id of a card with ^b^color^r^ which is one of green|yellow|orange|red|purple|blue.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("unlabel".equals(subcommand)) {
                     Output.print("^b^unlabel <color> from <card-id>");
                     Output.print("    unlabels the ^b^color^r^ which is one of green|yellow|orange|red|purple|blue from ^b^card-id^r^ which is the Trello or wrk id of a card.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("close".equals(subcommand)) {
                     Output.print("^b^close b:<board-id>|l:<list-id>|c:<card-id>^r^");
                     Output.print("    closes the ^b^board-id^r^|^b^list-id^r^|^b^card-id^r^ which is the Trello or wrk id of a board|list|card.");
                     Output.print("    Note, if using a wrk id the prefix is not necessary as wrk ids know their type.");
+                    Output.print("");
+                    Output.print("Wrk ids are short versions of Trello ids prefixed with ^b^wrk^r^.");
                 } else if ("pop".equals(subcommand)) {
                     Output.print("^b^pop [num|all]^r^");
                     Output.print("    pops 1 (or ^b^num^r^ or ^b^all^r^) of the queued wrk id results.");
