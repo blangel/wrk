@@ -143,6 +143,10 @@ WRK_USR_ID=""
 if [ -e "$HOME/.wrk/usrid" ]; then
   WRK_USR_ID=`cat $HOME/.wrk/usrid`
 fi
+WRK_APP_KEY='8d56bbd601877abfd13150a999a840d0'
+if [ -e "$HOME/.wrk/app-key" ]; then
+  WRK_APP_KEY=`cat $HOME/.wrk/app-key`
+fi
 
 WRK_PIPED="false"
 if tty -s <&1; then
@@ -164,5 +168,6 @@ exec "$JAVACMD" \
   "-Dwrk.editor=${WRK_EDITOR}" \
   "-Dwrk.trello.usr.token=${WRK_USR_TOKEN}" \
   "-Dwrk.trello.usr.id=${WRK_USR_ID}" \
+  "-Dwrk.trello.app.key=${WRK_APP_KEY}" \
   "net.ocheyedan.wrk.Wrk" "$@"
 
