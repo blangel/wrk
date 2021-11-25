@@ -1,0 +1,168 @@
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+# Wrk Start Up Batch script
+#
+# Required ENV vars:
+# ------------------
+#   JAVA_HOME - location of a JDK home dir
+#
+# Optional ENV vars
+# -----------------
+#   WRK_HOME - location of wrk's installed home dir
+# ----------------------------------------------------------------------------
+
+# OS specific support.  $var _must_ be set to either true or false.
+cygwin=false;
+darwin=false;
+mingw=false
+case "`uname`" in
+  CYGWIN*) cygwin=true ;;
+  MINGW*) mingw=true;;
+  Darwin*) darwin=true 
+           if [ -z "$JAVA_VERSION" ] ; then
+             JAVA_VERSION="CurrentJDK"
+           fi
+           if [ -z "$JAVA_HOME" ] ; then
+             JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/${JAVA_VERSION}/Home
+           fi
+           ;;
+esac
+
+if [ -z "$JAVA_HOME" ] ; then
+  if [ -r /etc/gentoo-release ] ; then
+    JAVA_HOME=`java-config --jre-home`
+  fi
+fi
+
+if [ -z "$PLY_HOME" ] ; then
+  ## resolve links - $0 may be a link to ply's home
+  PRG="$0"
+
+  # need this for relative symlinks
+  while [ -h "$PRG" ] ; do
+    ls=`ls -ld "$PRG"`
+    link=`expr "$ls" : '.*-> \(.*\)$'`
+    if expr "$link" : '/.*' > /dev/null; then
+      PRG="$link"
+    else
+      PRG="`dirname "$PRG"`/$link"
+    fi
+  done
+
+  saveddir=`pwd`
+
+  WRK_HOME=`dirname "$PRG"`/..
+
+  # make it fully qualified
+  WRK_HOME=`cd "$WRK_HOME" && pwd`
+
+  cd "$saveddir"
+  # echo Using wrk at $WRK_HOME
+fi
+
+# For Cygwin, ensure paths are in UNIX format before anything is touched
+if $cygwin ; then
+  [ -n "$PLY_HOME" ] &&
+    PLY_HOME=`cygpath --unix "$PLY_HOME"`
+  [ -n "$JAVA_HOME" ] &&
+    JAVA_HOME=`cygpath --unix "$JAVA_HOME"`
+  [ -n "$CLASSPATH" ] &&
+    CLASSPATH=`cygpath --path --unix "$CLASSPATH"`
+fi
+
+# For Migwn, ensure paths are in UNIX format before anything is touched
+if $mingw ; then
+  [ -n "$WRK_HOME" ] &&
+    WRK_HOME="`(cd "$WRK_HOME"; pwd)`"
+  [ -n "$JAVA_HOME" ] &&
+    JAVA_HOME="`(cd "$JAVA_HOME"; pwd)`"
+  # TODO classpath?
+fi
+
+if [ -z "$JAVA_HOME" ]; then
+  javaExecutable="`which javac`"
+  if [ -n "$javaExecutable" -a ! "`expr \"$javaExecutable\" : '\([^ ]*\)'`" = "no" ]; then
+    # readlink(1) is not available as standard on Solaris 10.
+    readLink=`which readlink`
+    if [ ! `expr "$readLink" : '\([^ ]*\)'` = "no" ]; then
+      javaExecutable="`readlink -f \"$javaExecutable\"`"
+      javaHome="`dirname \"$javaExecutable\"`"
+      javaHome=`expr "$javaHome" : '\(.*\)/bin'`
+      JAVA_HOME="$javaHome"
+      export JAVA_HOME
+    fi
+  fi
+fi
+
+if [ -z "$JAVACMD" ] ; then
+  if [ -n "$JAVA_HOME"  ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+      # IBM's JDK on AIX uses strange locations for the executables
+      JAVACMD="$JAVA_HOME/jre/sh/java"
+    else
+      JAVACMD="$JAVA_HOME/bin/java"
+    fi
+  else
+    JAVACMD="`which java`"
+  fi
+fi
+
+if [ ! -x "$JAVACMD" ] ; then
+  echo "Error: JAVA_HOME is not defined correctly."
+  echo "  We cannot execute $JAVACMD"
+  exit 1
+fi
+
+if [ -z "$JAVA_HOME" ] ; then
+  echo "Warning: JAVA_HOME environment variable is not set."
+fi
+
+# For Cygwin, switch paths to Windows format before running java
+if $cygwin; then
+  [ -n "$PLY_HOME" ] &&
+    PLY_HOME=`cygpath --path --windows "$PLY_HOME"`
+  [ -n "$JAVA_HOME" ] &&
+    JAVA_HOME=`cygpath --path --windows "$JAVA_HOME"`
+  [ -n "$CLASSPATH" ] &&
+    CLASSPATH=`cygpath --path --windows "$CLASSPATH"`
+fi
+
+# Determine the wrk version
+WRK_VERSION=""
+if [ -e $WRK_HOME/version ]; then
+  WRK_VERSION=`cat $WRK_HOME/version`
+fi
+
+# Retrieve the user token/id
+WRK_USR_TOKEN=""
+if [ -e "$HOME/.wrk/token" ]; then
+  WRK_USR_TOKEN=`cat $HOME/.wrk/token`
+fi
+WRK_USR_ID=""
+if [ -e "$HOME/.wrk/usrid" ]; then
+  WRK_USR_ID=`cat $HOME/.wrk/usrid`
+fi
+
+WRK_PIPED="false"
+if tty -s <&1; then
+  WRK_PIPED="false"
+else
+  WRK_PIPED="true"
+fi
+WRK_EDITOR="`which emacs`"
+if [ -z "WRK_EDITOR" ]; then
+  WRK_EDITOR="`which vi`"
+fi
+
+exec "$JAVACMD" \
+  -client -Xms32M -Xmx32M -noverify \
+  -Xbootclasspath/a:"${WRK_HOME}"/lib/wrk-1.0.jar:"${WRK_HOME}"/lib/jackson-core-asl-1.9.5.jar:"${WRK_HOME}"/lib/jackson-mapper-asl-1.9.5.jar \
+  "-Dwrk.version=${WRK_VERSION}" \
+  "-Dwrk.home=${WRK_HOME}" \
+  "-Dwrk.piped=${WRK_PIPED}" \
+  "-Dwrk.editor=${WRK_EDITOR}" \
+  "-Dwrk.trello.usr.token=${WRK_USR_TOKEN}" \
+  "-Dwrk.trello.usr.id=${WRK_USR_ID}" \
+  "net.ocheyedan.wrk.Wrk" "$@"
+
