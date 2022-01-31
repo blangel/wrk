@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public final class Trello {
 
-    public static final String APP_DEV_KEY = "8d56bbd601877abfd13150a999a840d0";
+    public static final String APP_DEV_KEY = System.getProperty("wrk.trello.app.key");
 
     public static final String USR_TOKEN = System.getProperty("wrk.trello.usr.token");
 
